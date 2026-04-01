@@ -280,13 +280,22 @@ FROM employee;
 ### Basic Syntax
 
 ```sql
-WITH AvgSalaryByDept AS (
-    SELECT Department, AVG(Salary) AS AvgSalary
-    FROM Employees
-    GROUP BY Department
+WITH cte AS (
+    SELECT *,
+           ROW_NUMBER() OVER (
+               PARTITION BY POD_STOCK_CODE 
+               ORDER BY POD_DATE DESC  
+           ) AS rn
+    FROM POP_DETAIL
 )
-SELECT *
-FROM AvgSalaryByDept;
+SELECT 
+    POD_STOCK_CODE,
+suname
+FROM cte
+join pl_accounts on sucode=  POD_ACCOUNT
+--join STK_LINK_ITEMS 
+--    ON SUBSTRING(LINK_PARENT, 2, LEN(LINK_PARENT)) = STKCODE
+WHERE rn = 1
 ```
 
 
