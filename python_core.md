@@ -106,7 +106,7 @@ To insert characters that are illegal in a string, use an escape character (`\`)
 For example, to use double quotes inside a string that is surrounded by double quotes:
 
 ```python
-# The escape character (\") allows you to use double quotes
+# The escape character (\") allows using double quotes
 txt = "We are the so-called \"Vikings\" from the north."
 ```
 
@@ -129,7 +129,6 @@ txt = "We are the so-called \"Vikings\" from the north."
 Lists are used to store multiple items in a single variable. They are ordered, changeable, and allow duplicate values.
 
 #### Common List Methods
-Python has a set of built-in methods that you can use on lists.
 
 **1. Adding Elements**
 ```python
