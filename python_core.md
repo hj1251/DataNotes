@@ -201,10 +201,6 @@ new_list = original.copy()
 ```
 
 ### Tuple
-Tuples are used to store multiple items in a single variable.
-
-Tuple is one of the 4 built-in data types in Python used to store collections of data. The other 3 are `List`, `Set`, and `Dictionary`.
-
 A tuple is:
 - ordered
 - unchangeable (immutable)
@@ -216,8 +212,18 @@ fruits = ("apple", "banana", "cherry")
 print(fruits)
 ```
 
+Difference between Tuple and list:
+```python
+fruits = ("apple", "banana", "cherry")
+print(type(fruits))  # <class 'tuple'>
+
+fruits = ["apple", "banana", "cherry"]
+print(type(fruits))  # <class 'list'>
+```
+
+
 #### Tuple with One Item
-To create a tuple with only one item, you must add a comma after the item.
+To create a tuple with only one item, must add a comma after the item.
 
 ```python
 one_item = ("apple",)
