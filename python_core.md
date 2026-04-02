@@ -455,7 +455,7 @@ print(type(x))
 Dictionaries are used to store data values in `key:value` pairs. They are written with curly brackets `{}`.
 
 A dictionary is:
-- **Ordered:** (As of Python 3.7) Items have a defined order that will not change.
+- **Ordered:** Items have a defined order that will not change.
 - **Changeable:** You can change, add, or remove items.
 - **Duplicates Not Allowed:** Cannot have two items with the same key. Duplicate values will overwrite existing values.
 
