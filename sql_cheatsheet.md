@@ -275,6 +275,77 @@ SELECT
 FROM employee;
 ```
 
+Users who have logged in for three consecutive days:
+```sql
+WITH t AS (
+    SELECT 
+        user_id,
+        CAST(login_date AS DATE) AS login_date
+    FROM customer
+    GROUP BY user_id, CAST(login_date AS DATE)  
+),
+
+t2 AS (
+    SELECT 
+        user_id,
+        login_date,
+        ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY login_date) AS rn
+    FROM t
+),
+
+t3 AS (
+    SELECT 
+        user_id,
+        login_date,
+        DATEADD(DAY, -rn, login_date) AS grp
+    FROM t2
+)
+
+SELECT 
+    user_id
+FROM t3
+GROUP BY user_id, grp
+HAVING COUNT(*) >= 3
+```
+
+Find users who have logged in for at least 4 consecutive days within the last 14 days
+```sql
+WITH t AS (
+    -- Step 1: Filter last 14 days and remove duplicates (one login per day per user)
+    SELECT 
+        user_id,
+        CAST(login_date AS DATE) AS login_date
+    FROM your_table
+    WHERE login_date >= DATEADD(DAY, -13, CAST(GETDATE() AS DATE))
+    GROUP BY user_id, CAST(login_date AS DATE)
+),
+
+t2 AS (
+    -- Step 2: Assign row numbers ordered by login date for each user
+    SELECT 
+        user_id,
+        login_date,
+        ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY login_date) AS rn
+    FROM t
+),
+
+t3 AS (
+    -- Step 3: Shift dates by row number to identify consecutive sequences
+    SELECT 
+        user_id,
+        login_date,
+        DATEADD(DAY, -rn, login_date) AS grp
+    FROM t2
+)
+
+-- Step 4: Group by user and sequence, keep users with at least 4 consecutive days
+SELECT DISTINCT user_id
+FROM t3
+GROUP BY user_id, grp
+HAVING COUNT(*) >= 4;
+```
+
+
 ## CTE (Common Table Expression)
 
 ### Basic Syntax
