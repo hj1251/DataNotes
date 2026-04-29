@@ -174,6 +174,7 @@ ON e.manager_id = m.id;
 SELECT *
 FROM colors
 CROSS JOIN sizes;
+```
 
 generate all possible combinations
 
