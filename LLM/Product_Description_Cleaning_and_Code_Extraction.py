@@ -44,7 +44,7 @@ For each line, extract TWO things:
 1. Code:
 - If there is content inside brackets (), extract it
 - If no brackets:
-    - If the whole line looks like a code (letters + numbers, no spaces, e.g. 19040538PF), use the whole line as Code
+    - If the whole line looks like a code (letters + numbers, no spaces, e.g. 19729BBTPF), use the whole line as Code
 - Otherwise return empty
 
 2. Short Description:
