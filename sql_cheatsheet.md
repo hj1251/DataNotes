@@ -69,7 +69,7 @@ SELECT
 FROM table;
 ```
 - CASE WHEN = conditional logic (like if-else in SQL)
-- 
+
 ## CAST AS DATE
 
 ```sql
@@ -233,12 +233,9 @@ WHERE NOT (
 ```
 
 -  Logic note:
-- 1. Exclude rows where BOTH conditions are met:
--  STOCK_Name = 'A' AND SORT_KET = 'ABC'
-- 2. Also exclude any rows where SORT_KEY <> '78' 
-- In summary:
-- Rows are included as long as they are NOT (A + ABC)
-- AND NOT 78
+- Exclude rows where BOTH conditions are met: (STOCK_Name = 'A' AND SORT_KET = 'ABC')
+- Also exclude any rows where SORT_KEY <> '78' 
+- In summary: Rows are included as long as they are NOT (A + ABC) AND NOT 78
 
 ## GROUP BY
 
