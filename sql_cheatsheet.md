@@ -189,7 +189,7 @@ LEFT JOIN customers c2 ON o.referrer_id = c2.id;
 
 - Join with Aggregated Subquery
 Different granularity:
-I have two tables: ORDER_DETAIL at line level and SALES_TRANSACTIONS at invoice level. In most cases, one order has multiple lines but only one invoice transaction; however, there can be multiple transactions for a single order.
+-- I have two tables: ORDER_DETAIL at line level and SALES_TRANSACTIONS at invoice level. In most cases, one order has multiple lines but only one invoice transaction; however, there can be multiple transactions for a single order.
 A direct join would create duplicate rows due to the difference in granularity, so instead I first aggregate the invoice data at order level. I then use ROW_NUMBER() to display the total invoice value only once per order.
 
 Example:
