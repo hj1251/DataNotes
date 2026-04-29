@@ -1,14 +1,18 @@
 """
-This script processes large volumes of messy product descriptions and extracts structured fields including:
-- Manufacturer (brand)
-- Model / branch
-- Production year
-- Product type
+This script processes large volumes of messy product descriptions and extracts:
+- Product code, where available
+- Short product description
+
+Logic:
+- If the description contains content inside brackets (), extract it as the product code.
+- If the whole description looks like a standalone code, use it as the product code.
+- Generate a clear, human-readable short description with a maximum length of 40 characters.
 
 Output:
-Structured dataset with extracted metadata fields for downstream analysis or reporting.
+The original dataset with two additional fields:
+- Code
+- Short_Desc
 """
-
 
 import pandas as pd
 from openai import OpenAI
