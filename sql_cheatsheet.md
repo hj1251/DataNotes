@@ -200,6 +200,22 @@ WHERE EXISTS (
 - EXISTS = check if related data exists
 - returns rows from A only if match found in B
 
+Another example: 
+```sql
+WHERE NOT (
+		STOCK_Name = 'A'
+		AND SORT_KET = 'ABC'
+		)     and  SORT_KEY <> '78' 
+```
+
+-  Logic note:
+- 1. Exclude rows where BOTH conditions are met:
+-  STOCK_Name = 'A' AND SORT_KET = 'ABC'
+- 2. Also exclude any rows where SORT_KEY <> '78' 
+- In summary:
+- Rows are included as long as they are NOT (A + ABC)
+- AND NOT 78
+
 ## GROUP BY
 
 ```sql
