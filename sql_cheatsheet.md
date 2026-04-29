@@ -186,6 +186,31 @@ LEFT JOIN customers c1 ON o.customer_id = c1.id
 LEFT JOIN customers c2 ON o.referrer_id = c2.id;
 ```
 
+- Join with Aggregated Subquery
+Different granularity:
+I have two tables: ORDER_DETAIL at line level and SALES_TRANSACTIONS at invoice level. In most cases, one order has multiple lines but only one invoice transaction; however, there can be multiple transactions for a single order.
+A direct join would create duplicate rows due to the difference in granularity, so instead I first aggregate the invoice data at order level. I then use ROW_NUMBER() to display the total invoice value only once per order.
+
+Example:
+```sql
+SELECT od.ORDER_DATE, od.CustomerCode, od.ProductCode, od.ProductDescription, od.QtySold, od.ORDER_NUMBER,
+-- Show invoice total only once per order
+    CASE 
+        WHEN ROW_NUMBER() OVER (PARTITION BY od.ORDER_NUMBER ORDER BY od.ProductCode) = 1 
+        THEN st_sum.OrderInvoiceTotal ELSE 0
+    END AS OrderInvoiceValue
+FROM ORDER_DETAIL od
+-- Step 1: aggregate invoice to order level
+LEFT JOIN (
+    SELECT 
+        ORDER_NUMBER,
+        SUM(ST_NETT) AS OrderInvoiceTotal
+    FROM SALES_TRANSACTIONS
+    GROUP BY ORDER_NUMBER
+) st_sum
+    ON st_sum.ORDER_NUMBER = od.ORDER_NUMBER;
+```
+
 ## WHERE EXISTS
 
 ```sql
