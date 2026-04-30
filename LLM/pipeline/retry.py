@@ -3,12 +3,12 @@ client = OpenAI(api_key="123")
 
 def retry(original, cleaned, issues):
     prompt = f"""
-    You previously cleaned this text incorrectly.
+    Previously cleaned this text incorrectly.
 
     Original input:
     {original}
 
-    Your previous output:
+    Previous output:
     {cleaned}
 
     Problems identified:
