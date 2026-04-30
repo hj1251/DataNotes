@@ -139,8 +139,7 @@ def process_batch(batch, batch_number):
                 "cleaned": "",
                 "is_valid": False,
                 "validation_issues": "BATCH_ERROR",
-                "retry_count": 0
-            })
+                "retry_count": 0})
 
     return local_results, local_errors
 
@@ -154,7 +153,6 @@ with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
     for start_idx in range(0, total, BATCH_SIZE):
         batch = rows[start_idx:start_idx + BATCH_SIZE]
         batch_number = start_idx // BATCH_SIZE + 1
-
         futures.append(
             executor.submit(process_batch, batch, batch_number)
         )
